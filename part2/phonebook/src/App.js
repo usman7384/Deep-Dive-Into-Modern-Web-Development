@@ -39,7 +39,6 @@ const App = () => {
   };
 
   const searchPerson = (event) => {
-    console.log("sisisi")
     const persontoSearch = event.target.value;
     var copyPersons = [...persons];
     copyPersons = copyPersons.filter(
@@ -52,8 +51,8 @@ const App = () => {
     <div>
       <h2>Phonebook</h2>
       <Filter array={showAll} searchPerson={searchPerson} />
-      {/* <h2>add new</h2>
-      <PersonForm newName={newName} newNumber={newNumber} addPerson={addPerson()} handleNameChange={handleNameChange()} handleNumberChange={handleNumberChange()}/> */}
+      <h2>add new</h2>
+      <PersonForm newName={newName} newNumber={newNumber} addPerson={addPerson} handleNameChange={handleNameChange} handleNumberChange={handleNumberChange}/>
       <h2>Numbers</h2>
       <Person array={persons}/>
     </div>
@@ -93,14 +92,14 @@ const Filter = (props) => {
   );
 };
 
-const PersonForm = (addPerson,handleNameChange,handleNumberChange,newName,newNumber) => {
+const PersonForm = (props) => {
   return (
-    <form onSubmit={addPerson}>
+    <form onSubmit={props.addPerson}>
       <div>
-        name: <input value={newName} onChange={handleNameChange} />
+        name: <input value={props.newName} onChange={props.handleNameChange} />
       </div>
       <div>
-        number: <input value={newNumber} onChange={handleNumberChange} />
+        number: <input value={props.newNumber} onChange={props.handleNumberChange} />
       </div>
       <div>
         <button type="submit">add</button>
