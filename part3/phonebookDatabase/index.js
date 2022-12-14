@@ -11,19 +11,20 @@ app.use(bodyParser.json());
 app.use(express.json());
 app.use(express.static("build"));
 
-morgan.token('ob', function (req, res) { 
-  console.log("ob", req.body)
-  return `${JSON.stringify(req.body)}` })
+morgan.token("ob", function(req, res) {
+  console.log("ob", req.body);
+  return `${JSON.stringify(req.body)}`;
+});
 
-app.use(morgan(':method :url :status :response-time :req[header] :ob'))
-
-
+app.use(morgan(":method :url :status :response-time :req[header] :ob"));
 
 const errorHandler = (error, request, response, next) => {
   console.error(error.message);
 
   if (error.name === "CastError") {
     return response.status(400).send({ error: "malformatted id" });
+  } else if (error.name === "ValidationError") {
+    return response.status(400).json({ error: "Validation Failed" });
   }
 
   next(error);
@@ -39,12 +40,13 @@ app.get("/api/persons", (request, response) => {
 
 app.get("/info", (request, response) => {
   const timestamp = new Date(Date.now());
-  var countInfo = Person.find();
-  countInfo.count(function (err, count) {
+  const countInfo = Person.find();
+  countInfo.count(function(err, count) {
     if (err) console.log(err);
     else {
       response.send(
-        `<p> Phonebook has info for ${count} people </p> <p> ${timestamp.toUTCString()}</p>`
+        `<p> Phonebook has info for ${count}
+         people </p> <p> ${timestamp.toUTCString()}</p>`,
       );
     }
   });
@@ -70,7 +72,7 @@ app.delete("/api/persons/:id", (request, response) => {
   });
 });
 
-app.post("/api/persons", (request, response) => {
+app.post("/api/persons", (request, response, next) => {
   const body = request.body;
 
   if (!body.name) {
@@ -91,14 +93,17 @@ app.post("/api/persons", (request, response) => {
       });
     }
 
-    let person = new Person({
+    const person = new Person({
       name: body.name,
       number: body.number,
     });
 
-    person.save().then((newPerson) => {
-      response.json(newPerson);
-    });
+    person
+      .save()
+      .then((newPerson) => {
+        response.json(newPerson);
+      })
+      .catch((error) => next(error));
   });
 });
 
