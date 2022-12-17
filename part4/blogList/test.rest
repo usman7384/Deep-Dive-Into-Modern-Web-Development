@@ -1,0 +1,9 @@
+GET http://localhost:3003/api/blogs
+Content-Type: application/json
+
+# {
+#   "title": "asdasd",
+#   "author": "String",
+#   "url": "String",
+#   "likes": 10
+# }
