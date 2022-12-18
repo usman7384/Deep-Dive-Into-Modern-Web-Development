@@ -2,15 +2,15 @@ const Router = require("express").Router();
 const jwt = require("jsonwebtoken");
 
 const Blog = require("../models/blog");
-const User = require("../models/user")
+const User = require("../models/user");
 
-const getTokenFrom = (request) => {
-  const authorization = request.get("authorization");
-  if (authorization && authorization.toLowerCase().startsWith("bearer ")) {
-    return authorization.substring(7);
-  }
-  return null;
-};
+// const getTokenFrom = (request) => {
+//   const authorization = request.get("authorization");
+//   if (authorization && authorization.toLowerCase().startsWith("bearer ")) {
+//     return authorization.substring(7);
+//   }
+//   return null;
+// };
 
 Router.get("/", (request, response) => {
   Blog.find({}).then((blogs) => {
@@ -34,11 +34,8 @@ Router.get("/:id", (request, response) => {
 Router.post("/", async (request, response) => {
   const { title, author, url, likes } = request.body;
 
-  const token = getTokenFrom(request);
-  console.log(token);
-  const decodedToken = jwt.verify(token, process.env.SECRET);
-  console.log("decoded",decodedToken)
-  if (!token || !decodedToken.id) {
+  const decodedToken = jwt.verify(request.token, process.env.SECRET);
+  if (!request.token || !decodedToken.id) {
     return response.status(401).json({ error: "token missing or invalid" });
   }
   const user = await User.findById(decodedToken.id);
@@ -70,11 +67,21 @@ Router.post("/", async (request, response) => {
   }
 });
 
-Router.delete("/:id", (request, response) => {
+Router.delete("/:id", async (request, response) => {
+  const decodedToken = jwt.verify(request.token, process.env.SECRET);
+  if (!request.token || !decodedToken.id) {
+    return response.status(401).json({ error: "token missing or invalid" });
+  }
   const id = request.params.id;
-  Blog.findByIdAndRemove(id).then((result) => {
-    response.status(204).end();
-  });
+
+  const blog = await Blog.findById(id);
+  if (blog.user.toString() === decodedToken.id.toString()) {
+    Blog.findByIdAndRemove(id).then((result) => {
+      response.status(204).end();
+    });
+  } else {
+    response.status(400).end();
+  }
 });
 
 Router.put("/:id", (request, response, next) => {

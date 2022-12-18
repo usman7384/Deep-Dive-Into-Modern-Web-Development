@@ -1,12 +1,12 @@
-GET http://localhost:3003/api/users
+GET http://localhost:3003/api/users 
 Content-Type: application/json
-# Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImRoaGQiLCJpZCI6IjYzOWVkYjA4ZDAxMjg4ZTUzMDU1MGVjZSIsImlhdCI6MTY3MTM1ODY5MH0.D81sReNamwu6Vps-umNNOxNfZK80YMeS2uH4Rx0gJkE
+# Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImRoaGQiLCJpZCI6IjYzOWVkYjA4ZDAxMjg4ZTUzMDU1MGVjZSIsImlhdCI6MTY3MTM2MDY1M30.POA9OGkTwXp-QOf7fAE0qnkfvBSLmMl28y1EhMnMsxI
 
 # {
-# "title": "NEWBLOGTEST",
+# "title": "NEWBLOGTEST2",
 #   "author": "USER",
-# "url": "USERASSOSIAATIOTEST",
-#   "likes": 12345
+# "url": "USERASSOSIAATIOTEST2",
+#   "likes": 123456
 # }
 
 # {
