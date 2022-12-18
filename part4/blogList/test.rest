@@ -1,15 +1,16 @@
 GET http://localhost:3003/api/users
 Content-Type: application/json
+# Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImRoaGQiLCJpZCI6IjYzOWVkYjA4ZDAxMjg4ZTUzMDU1MGVjZSIsImlhdCI6MTY3MTM1ODY5MH0.D81sReNamwu6Vps-umNNOxNfZK80YMeS2uH4Rx0gJkE
 
 # {
-#   "title": "asdasd",
-#   "author": "String",
-#   "url": "String",
-#   "likes": 20
+# "title": "NEWBLOGTEST",
+#   "author": "USER",
+# "url": "USERASSOSIAATIOTEST",
+#   "likes": 12345
 # }
 
 # {
-#     "username":"deadmanwalking",
-#     "name":"usman",
-#     "password": "salasana"
+#     "username":"dhhd",
+#     "name":"fsdf",
+#     "password": "suhjh"
 # }
