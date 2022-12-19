@@ -38,15 +38,15 @@ Router.post("/", async (request, response) => {
   if (!request.token || !decodedToken.id) {
     return response.status(401).json({ error: "token missing or invalid" });
   }
-  const user = await User.findById(decodedToken.id);
-
+  // const request.user = await User.findById(decodedToken.id);
+  console.log(request.user);
   const blog = new Blog({
     title,
     author,
     url,
     likes,
     date: new Date(),
-    user: user._id,
+    user: request.user._id,
   });
 
   if (typeof blog.likes === "undefined" || blog.likes === null) {
@@ -61,8 +61,8 @@ Router.post("/", async (request, response) => {
     response.status(400).end();
   } else {
     const savedBlog = await blog.save();
-    user.blogs = user.blogs.concat(savedBlog._id);
-    await user.save();
+    request.user.blogs = request.user.blogs.concat(savedBlog._id);
+    await request.user.save();
     response.status(201).json(savedBlog);
   }
 });
