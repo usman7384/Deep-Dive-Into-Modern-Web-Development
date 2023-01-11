@@ -1,12 +1,12 @@
-POST http://localhost:3003/api/blogs
+PUT http://localhost:3003/api/blogs/639db40673ac25b061766166
 Content-Type: application/json
 Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImRoaGQiLCJpZCI6IjYzOWVkYjA4ZDAxMjg4ZTUzMDU1MGVjZSIsImlhdCI6MTY3MTM2MDY1M30.POA9OGkTwXp-QOf7fAE0qnkfvBSLmMl28y1EhMnMsxI
 
 {
-"title": "NEWBLOGTEST10",
+"title": "NEWBLOGTEST120",
 "author": "USER",
 "url": "USERASSOSIAATIOTEST10",
-"likes": 1234567
+"likes": 34
 }
 
 # {

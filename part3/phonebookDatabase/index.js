@@ -58,6 +58,7 @@ app.get("/api/persons/:id", (request, response, next) => {
     .then((person) => {
       if (person) {
         response.json(person);
+        response.status(200).end();
       } else {
         response.status(404).end();
       }

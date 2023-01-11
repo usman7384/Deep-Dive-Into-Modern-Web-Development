@@ -1,7 +1,7 @@
-POST http://localhost:3001/api/persons
+GET http://localhost:3001/api/persons/63999a938f2df5a4e4e90f52
 Content-Type: application/json
 
-{
-  "name": "Mary Ppendeck",
-  "number": "324235423"
-}
+# {
+#   "name": "Mary Ppendeck",
+#   "number": "324235423"
+# }
